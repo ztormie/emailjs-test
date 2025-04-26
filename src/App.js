@@ -4,15 +4,18 @@ function App() {
   
   function sendEmail(e) {
     e.preventDefault(); // Stop page from refreshing
-
-    emailjs.sendForm('service_tcdufeh', 'template_8dnnp4h', e.target, 'igKdhOcJ8_did7bFv')
-      .then((result) => {
-          console.log('SUCCESS!', result.text);
-          alert('Email sent successfully!');
-      }, (error) => {
-          console.log('FAILED...', error.text);
-          alert('Email failed to send.');
-      });
+    emailjs.sendForm(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      e.target,
+      process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+    ).then((result) => {
+        console.log('SUCCESS!', result.text);
+        alert('Email sent successfully!');
+    }, (error) => {
+        console.log('FAILED...', error.text);
+        alert('Email failed to send.');
+    });
 
     e.target.reset(); // Clear the form
   }
